@@ -12,7 +12,7 @@ public class Main {
         System.out.println("Generation des reines effectuée");
         System.out.println("BackTracking\n");
         long debut = System.currentTimeMillis();
-        System.out.println(FC(c));
+        System.out.println(BT(c));
         long fin = System.currentTimeMillis();
         double second = (fin-debut) /1000F;
         System.out.println("Temps d'éxécution : "+second);
@@ -92,7 +92,6 @@ public class Main {
                 if(i <= csp.getNbVariable())
                     domaine = csp.getVariables().get(i-1).resetDomaine();
             }
-            if(i>=28)
                 System.out.println(i);
         }
         return assign;
