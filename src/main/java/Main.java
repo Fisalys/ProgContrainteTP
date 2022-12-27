@@ -6,17 +6,43 @@ import java.util.stream.IntStream;
 
 public class Main {
 
-    public static void main(String[] args) {
 
-        CSP c = generateNQueenProblem(4);
+   /** public static void main(String[] args) {
+
+        CSP c = generateurCSP(100,5,0.5,0.5, 1).get(0);
         System.out.println("Generation des reines effectuée");
         System.out.println("BackTracking\n");
         long debut = System.currentTimeMillis();
-        System.out.println(BT(c));
+        System.out.println(BJ(c));
         long fin = System.currentTimeMillis();
         double second = (fin-debut) /1000F;
         System.out.println("Temps d'éxécution : "+second);
 
+
+    }**/
+
+    public static void main(String[] args) {
+        List<Double> temps = new ArrayList<>();
+        int nbVariable = 100;
+        int nbValeur = 5;
+        double durete = 0.5;
+        double densite = 0.5;
+        int nb = 30;
+        List<CSP> listCsp = generateurCSP(nbVariable, nbValeur, durete, densite, nb);
+        System.out.println("Génération de "+ nb + " CSP aléatoire avec " + nbVariable + " variables de " + nbValeur + " valeurs, " + durete + " de durete et " + densite + " densité");
+        for(CSP csp: listCsp)
+        {
+            long debut = System.currentTimeMillis();
+            BT(csp);
+            long fin = System.currentTimeMillis();
+            double second = (fin-debut) /1000F;
+            temps.add(second);
+        }
+        double temp = 0;
+        for(Double d : temps)
+            temp += d;
+        double moyenne = temp/temps.size();
+        System.out.println("Moyenne de calcul d'un CSP : " + moyenne);
 
     }
    public static List<CSP> generateurCSP(int nbVariable, int nbValeur, double durete, double densite, int nb)
@@ -79,22 +105,22 @@ public class Main {
             }
             if(!ok) {
                 i--;
-                domaine = csp.getVariables().get(i-1).getDomaine();
+                if(!(i-1 < 0))
+                    domaine = csp.getVariables().get(i-1).getDomaine();
             }
-            else
-            {
-                if(assign.size() < i) {
+            else {
+                if (assign.size() < i) {
                     assign.add(x);
-                }else {
-                    assign.set(i-1,x);
+                } else {
+                    assign.set(i - 1, x);
                 }
                 i++;
-                if(i <= csp.getNbVariable())
-                    domaine = csp.getVariables().get(i-1).resetDomaine();
+                if (i <= csp.getNbVariable())
+                    domaine = csp.getVariables().get(i - 1).resetDomaine();
             }
-                System.out.println(i);
         }
-        return assign;
+        if(i == 0) return null; else return assign;
+
    }
 
     public static List<Integer> BJ(CSP csp)
@@ -130,7 +156,8 @@ public class Main {
             }
             if(!ok) {
                 i = coupable.get(i-1);
-                domaine = csp.getVariables().get(i-1).getDomaine();
+                if(!(i-1 < 0))
+                    domaine = csp.getVariables().get(i-1).getDomaine();
             }
             else
             {
@@ -147,7 +174,7 @@ public class Main {
             if(i>=28)
                 System.out.println(i);
         }
-        return assign;
+        if(i == 0) return null; else return assign;
     }
 
     public static List<Integer> FC(CSP csp){

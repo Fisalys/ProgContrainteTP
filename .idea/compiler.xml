@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ProgContrainteTP" />
+        <module name="tp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ProgContrainteTP" target="14" />
+      <module name="tp" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>
