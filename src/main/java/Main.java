@@ -6,10 +6,10 @@ import java.util.stream.IntStream;
 
 public class Main {
 
+/**
+    public static void main(String[] args) {
 
-   /** public static void main(String[] args) {
-
-        CSP c = generateurCSP(100,5,0.5,0.5, 1).get(0);
+        CSP c = generateurCSP(1000,5,0.5,0.5, 1).get(0);
         System.out.println("Generation des reines effectuée");
         System.out.println("BackTracking\n");
         long debut = System.currentTimeMillis();
@@ -23,15 +23,18 @@ public class Main {
 
     public static void main(String[] args) {
         List<Double> temps = new ArrayList<>();
-        int nbVariable = 100;
-        int nbValeur = 5;
+        int nbVariable = 20;
+        int nbValeur = 20;
         double durete = 0.5;
-        double densite = 0.5;
+        double densite = 1;
         int nb = 30;
         List<CSP> listCsp = generateurCSP(nbVariable, nbValeur, durete, densite, nb);
         System.out.println("Génération de "+ nb + " CSP aléatoire avec " + nbVariable + " variables de " + nbValeur + " valeurs, " + durete + " de durete et " + densite + " densité");
+        int t = 0;
         for(CSP csp: listCsp)
         {
+            t++;
+            System.out.println("CSP n° " + t);
             long debut = System.currentTimeMillis();
             BT(csp);
             long fin = System.currentTimeMillis();
@@ -42,9 +45,10 @@ public class Main {
         for(Double d : temps)
             temp += d;
         double moyenne = temp/temps.size();
-        System.out.println("Moyenne de calcul d'un CSP : " + moyenne);
+        System.out.println("Moyenne de calcul d'un CSP (BJ) : " + moyenne);
 
     }
+
    public static List<CSP> generateurCSP(int nbVariable, int nbValeur, double durete, double densite, int nb)
    {
         List<CSP> list = new ArrayList<>();
@@ -171,8 +175,6 @@ public class Main {
                     domaine = csp.getVariables().get(i-1).resetDomaine();
                 coupable.add(i-1,0);
             }
-            if(i>=28)
-                System.out.println(i);
         }
         if(i == 0) return null; else return assign;
     }
@@ -204,7 +206,7 @@ public class Main {
                 if(domaineVide)
                 {
                     //TODO: Restaurer chaque domaine avant le choix de la valeur x
-                    
+
 
                 }else
                     ok = true;
