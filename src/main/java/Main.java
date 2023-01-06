@@ -23,17 +23,20 @@ public class Main {
 
     public static void main(String[] args) {
         List<Double> temps = new ArrayList<>();
-        int nbVariable = 100;
-        int nbValeur = 5;
+        int nbVariable = 30;
+        int nbValeur = 10;
         double durete = 0.5;
         double densite = 0.5;
-        int nb = 30;
+        int nb = 10;
         List<CSP> listCsp = generateurCSP(nbVariable, nbValeur, durete, densite, nb);
         System.out.println("Génération de "+ nb + " CSP aléatoire avec " + nbVariable + " variables de " + nbValeur + " valeurs, " + durete + " de durete et " + densite + " densité");
+        int i = 0;
         for(CSP csp: listCsp)
         {
+            i++;
+            System.out.println("CSP n° " + i);
             long debut = System.currentTimeMillis();
-            BT(csp);
+            System.out.println(BJ(csp));
             long fin = System.currentTimeMillis();
             double second = (fin-debut) /1000F;
             temps.add(second);
@@ -203,15 +206,11 @@ public class Main {
                 }
                 if(domaineVide)
                 {
-                    //TODO: Restaurer chaque domaine avant le choix de la valeur x
-                    
-
                 }else
                     ok = true;
             }
             if(!ok)
             {
-                //TODO: Restaurer chaque domaine avant le choix de la valeur x
                 i--;
             }else {
                 if(assign.size() < i) {
